@@ -2,275 +2,764 @@
 <html lang="de">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>BackReserve – Vorbestellung und Abholung für Bäckereien</title>
-  <meta name="description" content="BackReserve: Ihre Kundschaft reserviert Brötchen, Donuts und Kuchen online und holt sie zur gewählten Zeit ab. Ohne Provision, ohne Lieferlogistik, Bezahlung bei Abholung." />
+  <meta name="description" content="BackReserve: Ihre Kundschaft reserviert Brötchen, Croissants und Kuchen online und holt sie zur gewählten Zeit ab. Ohne Provision, ohne Kundenkonto, Bezahlung bei Abholung." />
   <meta name="referrer" content="no-referrer" />
-  <meta name="theme-color" content="#FAF6F0" />
-  <meta property="og:title" content="BackReserve – Vorbestellen. Sicher abholen. Frisch genießen." />
-  <meta property="og:description" content="Die einfache Vorbestell- und Abholplattform für Bäckereien, Konditoreien und Donut-Shops." />
+  <meta name="theme-color" content="#100C09" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="canonical" href="https://metur100.github.io/Back.Reserver.Landing/" />
+  <meta property="og:title" content="BackReserve – Backen, was bestellt ist." />
+  <meta property="og:description" content="Die Vorbestell- und Abholplattform für Bäckereien, Konditoreien und Donut-Shops." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="assets/img/app-bakery-mobile.png" />
+  <meta property="og:locale" content="de_DE" />
+  <meta property="og:url" content="https://metur100.github.io/Back.Reserver.Landing/" />
+  <meta property="og:image" content="https://metur100.github.io/Back.Reserver.Landing/assets/img/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+  <link rel="preload" href="assets/fonts/fraunces-full.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/fraunces-full-italic.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+  <script>
+    // Runs before first paint: enables the animated layout only when JavaScript is available.
+    (function (d) {
+      var c = d.documentElement.classList;
+      c.add('js');
+      if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) c.add('reduced');
+      try { if (sessionStorage.getItem('br-intro') === '1') c.add('no-intro'); } catch (e) { c.add('no-intro'); }
+      // Failsafe: never keep content hidden if the main script fails to load.
+      setTimeout(function () { c.add('is-ready'); }, 5000);
+    })(document);
+  </script>
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
-<body>
+<body data-theme="night">
   <a class="skip-link" href="#main">Zum Inhalt springen</a>
 
-  <header class="site-header" id="top">
-    <div class="container header-inner">
-      <a class="brand" href="#top" aria-label="BackReserve – zur Startseite">
-        <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 32 32" width="32" height="32"><rect width="32" height="32" rx="8" fill="currentColor"/><path d="M8 20c0-5 3.6-9 8-9s8 4 8 9v1H8z" fill="#FAF6F0"/><path d="M12 21v-4M16 21v-6M20 21v-4" stroke="#B5562B" stroke-width="1.6" stroke-linecap="round"/></svg>
-        </span>
+  <!-- Illustrations (decorative, reused via <use>) -->
+  <svg class="sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-brezel" viewBox="0 0 64 64">
+      <path d="M22 47L32 30C36 22 40 14 46 14C54 14 58 22 56 30C54 40 52 44 46 50C38 57 26 57 18 50C12 44 8 38 8 30C6 22 10 14 18 14C24 14 28 22 32 30L42 47" fill="none" stroke="#8A4A22" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M22 47L32 30C36 22 40 14 46 14C54 14 58 22 56 30C54 40 52 44 46 50C38 57 26 57 18 50C12 44 8 38 8 30C6 22 10 14 18 14C24 14 28 22 32 30L42 47" fill="none" stroke="#C27236" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <g fill="#FFF6EA"><rect x="12" y="22" width="2.6" height="1.8" rx=".9"/><rect x="18" y="15" width="2.6" height="1.8" rx=".9"/><rect x="45" y="15" width="2.6" height="1.8" rx=".9"/><rect x="52" y="23" width="2.6" height="1.8" rx=".9"/><rect x="10" y="36" width="2.6" height="1.8" rx=".9"/><rect x="52" y="38" width="2.6" height="1.8" rx=".9"/><rect x="30" y="52" width="2.6" height="1.8" rx=".9"/></g>
+    </symbol>
+    <symbol id="i-croissant" viewBox="0 0 64 64">
+      <g stroke="#9A5422" stroke-width="1.6">
+        <ellipse cx="12" cy="41" rx="5.5" ry="9" transform="rotate(-55 12 41)" fill="#D58C40"/>
+        <ellipse cx="52" cy="41" rx="5.5" ry="9" transform="rotate(55 52 41)" fill="#D58C40"/>
+        <ellipse cx="20" cy="34" rx="7" ry="11.5" transform="rotate(-30 20 34)" fill="#E29C4C"/>
+        <ellipse cx="44" cy="34" rx="7" ry="11.5" transform="rotate(30 44 34)" fill="#E29C4C"/>
+        <ellipse cx="32" cy="31" rx="8.5" ry="14" fill="#EDAE5D"/>
+      </g>
+      <path d="M28 22c2 4 2 14 0 19M36 22c-2 4-2 14 0 19" stroke="#F8D49A" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+    </symbol>
+    <symbol id="i-donut" viewBox="0 0 64 64">
+      <defs><mask id="donut-hole"><rect width="64" height="64" fill="#fff"/><circle cx="32" cy="32" r="7" fill="#000"/></mask></defs>
+      <g mask="url(#donut-hole)">
+        <circle cx="32" cy="33.5" r="24" fill="#B9692C"/>
+        <circle cx="32" cy="32" r="24" fill="#E3A15A"/>
+        <path d="M32 11c5 0 7 3 11 3s7 4 7 8 3 6 2 10-1 7-4 9-3 6-8 6-6 3-9 3-6-3-9-3-6-2-8-5-4-4-4-8-2-6 0-10 2-7 6-9 6-4 10-4z" fill="#F2B6C6"/>
+        <circle cx="32" cy="32" r="9.5" fill="#E3A15A"/>
+      </g>
+      <g stroke-linecap="round" stroke-width="2.2">
+        <path d="M22 20l3 1" stroke="#FFF6EA"/><path d="M40 18l2 2" stroke="#7DB3E8"/><path d="M46 30l1 3" stroke="#F6D25E"/>
+        <path d="M18 34l1-3" stroke="#7DB3E8"/><path d="M27 45l3-1" stroke="#F6D25E"/><path d="M41 43l2-2" stroke="#FFF6EA"/>
+      </g>
+    </symbol>
+    <symbol id="i-loaf" viewBox="0 0 64 64">
+      <path d="M7 44c0-15 11-26 25-26s25 11 25 26c0 3-2 5-5 5H12c-3 0-5-2-5-5z" fill="#A85A27"/>
+      <path d="M7 42c0-14 11-25 25-25s25 11 25 25c0 2-2 4-4 4H11c-2 0-4-2-4-4z" fill="#CF8240"/>
+      <path d="M20 27c3 3 4 7 3 11M31 23c3 4 4 9 3 14M42 27c3 3 4 7 3 11" stroke="#F3C68A" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+    </symbol>
+    <symbol id="i-cake" viewBox="0 0 64 64">
+      <path d="M10 30l40-12 4 10v20H10z" fill="#5A3322"/>
+      <path d="M10 30l40-12 4 10-44 2z" fill="#F4E3CF"/>
+      <path d="M10 38h44v4H10z" fill="#F4E3CF"/>
+      <circle cx="44" cy="17" r="4" fill="#C9333F"/>
+    </symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 6v12M6 12h12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 16l4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-mark" viewBox="0 0 32 32"><path d="M7 21c0-5.5 4-10 9-10s9 4.5 9 10v1.5H7z" fill="currentColor"/><path d="M12.5 16c1 1.5 1 3.5 0 5M16 14.5c1 2 1 4.5 0 6.5M19.5 16c1 1.5 1 3.5 0 5" stroke="var(--mark-cut, #100C09)" stroke-width="1.6" stroke-linecap="round" fill="none"/></symbol>
+  </svg>
+
+  <!-- Intro: the bakery wakes up (shown once per session, skipped for reduced motion) -->
+  <div class="intro" aria-hidden="true">
+    <div class="intro-center">
+      <p class="intro-clock"><span data-intro-clock>03:56</span></p>
+      <p class="intro-label">Die Backstube erwacht</p>
+    </div>
+    <div class="intro-bar"><span></span></div>
+  </div>
+
+  <div class="grain" aria-hidden="true"></div>
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+  <header class="nav" data-nav>
+    <div class="nav-pill">
+      <a class="brand" href="#top" aria-label="BackReserve – zum Seitenanfang">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><use href="#i-mark"/></svg></span>
         <span class="brand-name">BackReserve</span>
       </a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
-        <span class="sr-only">Menü öffnen</span>
-        <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-      </button>
-      <nav class="site-nav" id="site-nav" aria-label="Hauptnavigation">
-        <a href="#funktionen">Funktionen</a>
+      <nav class="nav-links" aria-label="Hauptnavigation">
         <a href="#ablauf">So funktioniert’s</a>
+        <a href="#funktionen">Funktionen</a>
+        <a href="#einblick">Einblick</a>
         <a href="#preise">Preise</a>
         <a href="#faq">FAQ</a>
-        <a class="nav-login" href="https://metur100.github.io/Back.Reserver.App/login">Anmelden</a>
-        <a class="btn btn-primary btn-sm" href="https://metur100.github.io/Back.Reserver.App/registrieren">Kostenlos testen</a>
       </nav>
+      <div class="nav-actions">
+        <a class="nav-login" href="https://metur100.github.io/Back.Reserver.App/login">Anmelden</a>
+        <a class="btn btn-primary btn-sm" data-magnetic href="https://metur100.github.io/Back.Reserver.App/registrieren"><span class="btn-label">Kostenlos testen</span></a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu">
+          <span class="sr-only" data-menu-label>Menü öffnen</span>
+          <span class="menu-icon" aria-hidden="true"><i></i><i></i></span>
+        </button>
+      </div>
     </div>
   </header>
 
+  <div class="menu" id="menu" hidden>
+    <nav aria-label="Mobile Navigation">
+      <a href="#ablauf"><span>01</span>So funktioniert’s</a>
+      <a href="#funktionen"><span>02</span>Funktionen</a>
+      <a href="#einblick"><span>03</span>Einblick</a>
+      <a href="#preise"><span>04</span>Preise</a>
+      <a href="#faq"><span>05</span>FAQ</a>
+    </nav>
+    <div class="menu-foot">
+      <a class="btn btn-primary" href="https://metur100.github.io/Back.Reserver.App/registrieren"><span class="btn-label">30 Tage kostenlos testen</span></a>
+      <a class="btn btn-ghost" href="https://metur100.github.io/Back.Reserver.App/login"><span class="btn-label">Anmelden</span></a>
+    </div>
+  </div>
+
   <main id="main">
-    <!-- Hero -->
-    <section class="hero">
-      <div class="container hero-grid">
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="top" data-theme-section="night" aria-labelledby="hero-title">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="hero-glow"></div>
+        <div class="hero-light"></div>
+        <canvas class="hero-dust" data-dust></canvas>
+        <div class="hero-lines"></div>
+      </div>
+
+      <div class="hero-inner">
         <div class="hero-copy">
-          <p class="eyebrow">Für Bäckereien, Konditoreien &amp; Donut-Shops</p>
-          <h1>Vorbestellen. Sicher abholen. Frisch&nbsp;genießen.</h1>
-          <p class="lead">Ihre Kundschaft reserviert Brötchen, Donuts und Kuchen online für eine feste Abholzeit. Sie wissen schon am Vorabend, was gebraucht wird – und niemand steht morgens vor leeren Regalen.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary btn-lg" href="https://metur100.github.io/Back.Reserver.App/registrieren">30 Tage kostenlos testen</a>
-            <a class="btn btn-ghost btn-lg" href="https://metur100.github.io/Back.Reserver.App/b/baeckerei-rheinblick">Demo-Bäckerei ansehen</a>
+          <p class="hero-eyebrow" data-hero-in style="--hi:0"><span class="live-dot" aria-hidden="true"></span>Vorbestellung &amp; Abholung für Bäckereien</p>
+          <h1 class="hero-title" id="hero-title" data-split="chars" data-proximity>
+            <span class="ln">Backen,</span>
+            <span class="ln">was <em>bestellt<svg class="swash" viewBox="0 0 300 26" preserveAspectRatio="none" aria-hidden="true"><path d="M6 18C70 7 170 3 294 11"/></svg></em></span>
+            <span class="ln">ist.</span>
+          </h1>
+          <p class="hero-lead" data-hero-in style="--hi:6">BackReserve ist die Vorbestellplattform für Bäckereien, Konditoreien und Donut-Shops. Ihre Kundschaft reserviert online zu einer festen Abholzeit – und Sie wissen schon am Vorabend, was morgen in den Ofen muss.</p>
+          <div class="hero-actions" data-hero-in style="--hi:7">
+            <a class="btn btn-primary btn-lg" data-magnetic href="https://metur100.github.io/Back.Reserver.App/registrieren">
+              <span class="btn-label">30 Tage kostenlos testen</span>
+              <span class="btn-icon" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+            </a>
+            <a class="btn btn-ghost btn-lg" data-magnetic href="https://metur100.github.io/Back.Reserver.App/b/baeckerei-rheinblick">
+              <span class="btn-icon btn-icon-play" aria-hidden="true"><svg><use href="#i-play"/></svg></span>
+              <span class="btn-label">Demo-Bäckerei ansehen</span>
+            </a>
           </div>
-          <ul class="hero-points" aria-label="Vorteile auf einen Blick">
-            <li><span class="check" aria-hidden="true"></span>Keine Provision pro Bestellung</li>
-            <li><span class="check" aria-hidden="true"></span>Kein Kundenkonto nötig</li>
-            <li><span class="check" aria-hidden="true"></span>Bezahlung bei Abholung</li>
+          <ul class="hero-proof" data-hero-in style="--hi:8" aria-label="Vorteile auf einen Blick">
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Keine Provision</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Kein Kundenkonto nötig</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Bezahlung bei Abholung</li>
           </ul>
         </div>
-        <div class="hero-visual">
-          <figure class="phone">
-            <img src="assets/img/app-bakery-mobile.png" width="390" height="844" alt="Bestellseite der Demo-Bäckerei auf dem Smartphone mit Produkten, Preisen und Verfügbarkeit" />
-          </figure>
-          <div class="floating-card" aria-hidden="true">
-            <p class="fc-label">Abholcode</p>
-            <p class="fc-code">BR-7K4M9X</p>
-            <p class="fc-meta">Morgen, 07:30–08:00 Uhr</p>
+
+        <!-- Animated product demo (decorative) -->
+        <div class="hero-stage" data-hero-stage aria-hidden="true">
+          <div class="stage-halo"></div>
+
+          <div class="receipt" data-depth="0.5">
+            <div class="receipt-paper">
+              <p class="r-head">Bäckerei Rheinblick</p>
+              <p class="r-sub">Reservierung · Mi, 14.10.</p>
+              <p class="r-rule"></p>
+              <p class="r-row"><span>1× Laugenbrezel</span><span>0,95</span></p>
+              <p class="r-row"><span>2× Buttercroissant</span><span>3,60</span></p>
+              <p class="r-row"><span>1× Classic Donut</span><span>1,90</span></p>
+              <p class="r-rule"></p>
+              <p class="r-row r-total"><span>Summe</span><span>6,45 €</span></p>
+              <p class="r-row"><span>Abholung</span><span>07:30–08:00</span></p>
+              <p class="r-note">Bezahlung bei Abholung</p>
+              <div class="r-code"><span class="qr" data-qr="BR-7K4M9X"></span><span><small>Abholcode</small><b>BR-7K4M9X</b></span></div>
+            </div>
           </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- Problem / solution -->
-    <section class="section section-tint" aria-labelledby="problem-title">
-      <div class="container narrow center">
-        <h2 id="problem-title">Schluss mit Zettelwirtschaft und „Leider schon ausverkauft“</h2>
-        <p class="section-lead">Bestellungen per Telefon, WhatsApp oder handgeschriebener Liste kosten Zeit und gehen unter. BackReserve bündelt alle Vorbestellungen an einem Ort – mit verlässlichen Mengen und klaren Abholzeiten.</p>
-      </div>
-      <div class="container grid-3 problem-grid">
-        <article class="card">
-          <h3>Für Ihre Kundschaft</h3>
-          <p>Produkt wählen, Abholzeit festlegen, fertig. Die Reservierung ist garantiert – mit Abholcode und QR-Code per E-Mail.</p>
-        </article>
-        <article class="card">
-          <h3>Für Ihre Backstube</h3>
-          <p>Die Produktionsübersicht zeigt, wie viel pro Produkt und Zeitfenster reserviert ist. Planen statt schätzen.</p>
-        </article>
-        <article class="card">
-          <h3>Für Ihre Theke</h3>
-          <p>Code eingeben oder QR scannen, Bestellung prüfen, als abgeholt markieren. Wenige Fingertipps, auch zur Stoßzeit.</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- How it works -->
-    <section class="section" id="ablauf" aria-labelledby="ablauf-title">
-      <div class="container">
-        <h2 id="ablauf-title" class="center">So funktioniert’s</h2>
-        <div class="steps-wrap">
-          <div>
-            <h3 class="steps-title">Kundinnen und Kunden</h3>
-            <ol class="steps">
-              <li><span class="step-no">1</span><div><strong>Bestellseite öffnen</strong><p>Über Ihren Link, Ihre Website oder Social Media – ohne App und ohne Registrierung.</p></div></li>
-              <li><span class="step-no">2</span><div><strong>Produkte und Abholzeit wählen</strong><p>Nur was wirklich verfügbar ist, wird angezeigt. Ausverkauftes ist klar gekennzeichnet.</p></div></li>
-              <li><span class="step-no">3</span><div><strong>Abholen und bezahlen</strong><p>Abholcode vorzeigen, Ware mitnehmen, wie gewohnt an der Theke bezahlen.</p></div></li>
-            </ol>
+          <div class="phone phone-hero" data-depth="1">
+            <div class="phone-frame">
+              <div class="phone-screen">
+                <div class="status"><span>20:14</span><i class="island"></i><span class="status-r"><i></i><i></i><i></i></span></div>
+                <div class="app shop" data-shop>
+                  <div class="shop-head">
+                    <span class="shop-logo">R</span>
+                    <span><b class="shop-name">Bäckerei Rheinblick</b><small>Am Rheinufer 7 · Düsseldorf</small></span>
+                  </div>
+                  <div class="shop-days">
+                    <span class="day is-off"><small>Heute</small><b>13.</b></span>
+                    <span class="day is-on"><small>Morgen</small><b>14.</b></span>
+                    <span class="day"><small>Do</small><b>15.</b></span>
+                    <span class="day"><small>Fr</small><b>16.</b></span>
+                    <span class="day"><small>Sa</small><b>17.</b></span>
+                  </div>
+                  <p class="shop-slot"><svg><use href="#i-clock"/></svg>Abholung <b>07:30–08:00</b><span class="slot-free">14 frei</span></p>
+                  <p class="shop-h">Verfügbar für morgen</p>
+                  <ul class="shop-list">
+                    <li class="item" data-item data-price="0.95" data-stock="14">
+                      <span class="item-img tint-a"><svg><use href="#i-brezel"/></svg></span>
+                      <span class="item-body"><b>Laugenbrezel</b><span class="stock"><i></i><span data-stock-label>Noch 14</span></span></span>
+                      <span class="item-side"><span class="price">0,95 €</span><span class="stepper"><span class="qty" data-qty>0</span><span class="plus" data-plus><svg><use href="#i-plus"/></svg></span></span></span>
+                    </li>
+                    <li class="item" data-item data-price="1.80" data-stock="6">
+                      <span class="item-img tint-b"><svg><use href="#i-croissant"/></svg></span>
+                      <span class="item-body"><b>Buttercroissant</b><span class="stock"><i></i><span data-stock-label>Noch 6</span></span></span>
+                      <span class="item-side"><span class="price">1,80 €</span><span class="stepper"><span class="qty" data-qty>0</span><span class="plus" data-plus><svg><use href="#i-plus"/></svg></span></span></span>
+                    </li>
+                    <li class="item is-low" data-item data-price="1.90" data-stock="2">
+                      <span class="item-img tint-c"><svg><use href="#i-donut"/></svg></span>
+                      <span class="item-body"><b>Classic Donut</b><span class="stock"><i></i><span data-stock-label>Knapp · noch 2</span></span></span>
+                      <span class="item-side"><span class="price">1,90 €</span><span class="stepper"><span class="qty" data-qty>0</span><span class="plus" data-plus><svg><use href="#i-plus"/></svg></span></span></span>
+                    </li>
+                    <li class="item is-out">
+                      <span class="item-img tint-d"><svg><use href="#i-cake"/></svg></span>
+                      <span class="item-body"><b>Schokoladenkuchen</b><span class="stock"><i></i><span>Ausverkauft</span></span></span>
+                      <span class="item-side"><span class="price">3,20 €</span></span>
+                    </li>
+                  </ul>
+                  <div class="cart" data-cart>
+                    <span class="cart-bag"><span data-cart-count>0</span></span>
+                    <span class="cart-info"><small>Warenkorb</small><b data-cart-total>0,00 €</b></span>
+                    <span class="cart-btn" data-cart-btn>Reservieren</span>
+                  </div>
+                  <div class="toast" data-toast><svg><use href="#i-check"/></svg><span>Reserviert · <b>BR-7K4M9X</b></span></div>
+                  <span class="tap" data-tap></span>
+                </div>
+              </div>
+            </div>
           </div>
-          <div>
-            <h3 class="steps-title">Ihre Bäckerei</h3>
-            <ol class="steps">
-              <li><span class="step-no">1</span><div><strong>Produkte und Mengen anlegen</strong><p>Preise, Fotos, Allergene und die verfügbare Menge pro Tag und Filiale.</p></div></li>
-              <li><span class="step-no">2</span><div><strong>Abholzeiten festlegen</strong><p>Zeitfenster, Kapazität pro Fenster, Bestellschluss und Schließtage – je Standort.</p></div></li>
-              <li><span class="step-no">3</span><div><strong>Reservierungen erfüllen</strong><p>Bestellungen vorbereiten, als abholbereit markieren und an der Theke übergeben.</p></div></li>
-            </ol>
-          </div>
+
+          <div class="chip chip-a" data-depth="1.6"><i class="chip-ok"><svg><use href="#i-check"/></svg></i><span><small>Echtzeit-Bestand</small>Menge reserviert</span></div>
+          <div class="chip chip-b" data-depth="1.3"><span><small>Abholfenster 07:30–08:00</small>14 von 20 Plätzen frei</span><i class="chip-bar"><i></i></i></div>
+          <div class="chip chip-c" data-depth="2"><svg class="chip-clock"><use href="#i-clock"/></svg><span><small>Bestellschluss</small>heute, 18:00 Uhr</span></div>
         </div>
+      </div>
+
+      <div class="hero-foot" data-hero-in style="--hi:9">
+        <a class="scroll-cue" href="#problem"><span class="scroll-cue-line" aria-hidden="true"></span>Ein Backtag mit BackReserve</a>
+        <p class="hero-foot-note"><span>Bäckereien</span><span>Konditoreien</span><span>Donut-Shops</span><span>Cafés</span></p>
       </div>
     </section>
 
-    <!-- Features -->
-    <section class="section section-tint" id="funktionen" aria-labelledby="funktionen-title">
+    <!-- ============ STATEMENT ============ -->
+    <section class="statement" id="problem" data-theme-section="night" aria-labelledby="problem-title">
       <div class="container">
-        <h2 id="funktionen-title" class="center">Alles, was eine Bäckerei für Vorbestellungen braucht</h2>
-        <p class="section-lead center narrow">Bewusst einfach gehalten – keine Lieferlogistik, kein Marktplatz, keine Provision.</p>
-        <div class="grid-3 features">
-          <article class="feature"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></svg></span><h3>Verlässliche Mengen</h3><p>Der Bestand wird beim Bestellen sofort reserviert. Auch bei vielen gleichzeitigen Bestellungen wird nie mehr verkauft als vorhanden.</p></article>
-          <article class="feature"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg></span><h3>Abholzeitfenster</h3><p>Feste Zeitfenster mit Kapazitätsgrenze, Bestellschluss am Vortag und Vorlaufzeit für Torten – pro Standort konfigurierbar.</p></article>
-          <article class="feature"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2v2h-2zM18 18h2v2h-2zM14 18h2M18 14h2"/></svg></span><h3>Abholcode &amp; QR-Code</h3><p>Jede Reservierung erhält einen gut lesbaren Code wie <span class="mono">BR-7K4M9X</span>. Das Team findet die Bestellung in Sekunden.</p></article>
-          <article class="feature"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><h3>Produktionsübersicht</h3><p>Geplant, reserviert, noch verfügbar – je Produkt und Abholfenster. Mengen vom Vortag übernehmen mit einem Klick.</p></article>
-          <article class="feature"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21V9l9-6 9 6v12"/><path d="M9 21v-6h6v6"/></svg></span><h3>Mehrere Filialen</h3><p>Bestände, Abholzeiten und Mitarbeiterrechte pro Standort. Filialleitungen sehen nur, was sie betrifft.</p></article>
-          <article class="feature"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.4-5.5 6.5-5.5s5.7 2 6.5 5.5"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18.5 14.8c1.6.8 2.6 2.6 3 5.2"/></svg></span><h3>Team &amp; Rollen</h3><p>Inhaber, Filialleitung und Mitarbeitende mit passenden Rechten. Einladung per E-Mail, ohne Passwörter weiterzugeben.</p></article>
-          <article class="feature"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M8 14l3-3 2 2 3-4"/></svg></span><h3>Auswertungen</h3><p>Reservierungen pro Tag, Produkt und Abholzeit, Stornierungen und Nicht-Abholungen. Export als CSV.</p></article>
-          <article class="feature"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></span><h3>Web &amp; App</h3><p>Die Bestellseite läuft in jedem Browser. Für das Team gibt es zusätzlich eine App mit QR-Scanner (Android &amp; iOS, in Vorbereitung).</p></article>
-          <article class="feature"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span><h3>Datensparsam</h3><p>Für eine Reservierung genügen Vorname und E-Mail. Kundendaten werden nach einer einstellbaren Frist automatisch anonymisiert.</p></article>
-        </div>
-      </div>
-    </section>
+        <p class="eyebrow" data-reveal><span class="eyebrow-no">01</span>Jeden Abend dieselbe Frage</p>
+        <h2 class="sr-only" id="problem-title">Das Problem: Wie viel backen wir morgen?</h2>
+        <p class="statement-text" data-words data-scene data-start="0.85" data-end="0.45">
+          Wie viel backen wir morgen? Zu viel <span class="pill-ic" aria-hidden="true"><svg><use href="#i-loaf"/></svg></span> – und es bleibt liegen. Zu wenig <span class="pill-ic" aria-hidden="true"><svg><use href="#i-croissant"/></svg></span> – und Stammkunden gehen leer aus. Mit BackReserve wissen Sie es <em>vorher.</em> <span class="pill-ic pill-ic-accent" aria-hidden="true"><svg><use href="#i-brezel"/></svg></span>
+        </p>
 
-    <!-- Screenshots -->
-    <section class="section" aria-labelledby="einblick-title">
-      <div class="container">
-        <h2 id="einblick-title" class="center">Ein Blick in BackReserve</h2>
-        <div class="showcase">
-          <figure class="shot shot-wide">
-            <img src="assets/img/app-production-desktop.png" width="1440" height="900" loading="lazy" alt="Produktionsübersicht im Bäckerei-Dashboard mit geplanten, reservierten und verfügbaren Mengen" />
-            <figcaption>Produktion: geplante und reservierte Mengen je Produkt</figcaption>
-          </figure>
-          <figure class="shot shot-phone">
-            <img src="assets/img/app-pickup-mobile.png" width="390" height="844" loading="lazy" alt="Abholbildschirm mit Eingabefeld für den Abholcode" />
-            <figcaption>Abholung an der Theke per Code oder QR</figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    <!-- Pricing -->
-    <section class="section section-tint" id="preise" aria-labelledby="preise-title">
-      <div class="container">
-        <h2 id="preise-title" class="center">Einfache Preise, monatlich</h2>
-        <p class="section-lead center narrow">30 Tage kostenlos testen. Keine Provision pro Bestellung, keine Einrichtungsgebühr.</p>
-        <div class="pricing">
-          <article class="plan">
-            <h3>Starter</h3>
-            <p class="price"><span class="amount">19&nbsp;€</span><span class="per">/ Monat</span></p>
-            <p class="plan-desc">Für die kleine Bäckerei mit einer Filiale.</p>
+        <div class="statement-grid">
+          <div class="strike-list" data-reveal>
+            <p class="strike-title">Schluss mit</p>
             <ul>
-              <li>1 Standort</li>
-              <li>bis 30 Produkte</li>
-              <li>bis 3 Benutzerkonten</li>
-              <li>Vorbestellungen &amp; Abholcodes</li>
-              <li>Basis-Auswertungen</li>
+              <li data-strike style="--sd:0"><span>Zetteln neben der Kasse</span></li>
+              <li data-strike style="--sd:1"><span>Bestellungen per WhatsApp und Telefon</span></li>
+              <li data-strike style="--sd:2"><span>„Leider schon ausverkauft.“</span></li>
             </ul>
-            <a class="btn btn-ghost" href="https://metur100.github.io/Back.Reserver.App/registrieren">Kostenlos testen</a>
+          </div>
+          <p class="statement-aside" data-reveal style="--rd:200">BackReserve bündelt alle Vorbestellungen an einem Ort – mit verlässlichen Mengen, klaren Abholzeiten und einer Produktionsübersicht, die morgens um vier funktioniert.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MARQUEE ============ -->
+    <div class="marquee" aria-hidden="true" data-marquee>
+      <div class="marquee-row" data-marquee-row="1">
+        <div class="marquee-track">
+          <span>Laugenbrezeln</span><svg><use href="#i-brezel"/></svg><span>Buttercroissants</span><svg><use href="#i-croissant"/></svg><span>Dinkelbrötchen</span><svg><use href="#i-loaf"/></svg><span>Donuts</span><svg><use href="#i-donut"/></svg><span>Sonntagstorten</span><svg><use href="#i-cake"/></svg><span>Zimtschnecken</span><svg><use href="#i-croissant"/></svg>
+        </div>
+      </div>
+      <div class="marquee-row marquee-row-alt" data-marquee-row="-1">
+        <div class="marquee-track">
+          <span>Vorbestellen</span><i>✦</i><span>Sicher abholen</span><i>✦</i><span>Frisch genießen</span><i>✦</i><span>Vorbestellen</span><i>✦</i><span>Sicher abholen</span><i>✦</i><span>Frisch genießen</span><i>✦</i>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ STORY (pinned) ============ -->
+    <section class="story" id="ablauf" data-theme-section="night" data-story data-step="0" aria-labelledby="story-title">
+      <div class="story-sticky">
+        <div class="story-sky" aria-hidden="true">
+          <div class="sky sky-0"><i class="stars"></i></div>
+          <div class="sky sky-1"><i class="stars"></i></div>
+          <div class="sky sky-2"></div>
+          <div class="sky sky-3"></div>
+        </div>
+
+        <div class="story-inner">
+          <div class="story-text">
+            <p class="eyebrow"><span class="eyebrow-no">02</span>So funktioniert’s</p>
+            <h2 class="story-title" id="story-title">Ein Backtag mit BackReserve</h2>
+
+            <div class="story-clock" aria-hidden="true">
+              <span class="roll" data-roll="0"><span>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</span></span><span class="roll" data-roll="1"><span>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</span></span><span class="colon">:</span><span class="roll" data-roll="2"><span>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</span></span><span class="roll" data-roll="3"><span>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</span></span>
+              <span class="clock-unit">Uhr</span>
+            </div>
+
+            <ol class="story-steps">
+              <li class="step" data-time="20:14">
+                <p class="step-kicker">Am Vorabend</p>
+                <h3>Reserviert in einer Minute.</h3>
+                <p>Ihre Kundin öffnet Ihren Link, wählt Brezeln und Croissants und eine Abholzeit. Ohne App, ohne Konto – Vorname und E-Mail genügen.</p>
+              </li>
+              <li class="step" data-time="20:15">
+                <p class="step-kicker">Im selben Moment</p>
+                <h3>Reserviert ist reserviert.</h3>
+                <p>Die Ware wird sofort fest eingeplant – auch wenn viele gleichzeitig bestellen. Die Bestätigung mit Abholcode und QR-Code kommt per E-Mail.</p>
+              </li>
+              <li class="step" data-time="04:00">
+                <p class="step-kicker">In der Backstube</p>
+                <h3>Gebacken wird, was bestellt ist.</h3>
+                <p>Die Produktionsübersicht zeigt je Produkt und Abholfenster, was reserviert ist. Planen statt schätzen – und weniger, das abends übrig bleibt.</p>
+              </li>
+              <li class="step" data-time="07:32">
+                <p class="step-kicker">An der Theke</p>
+                <h3>Übergabe in Sekunden.</h3>
+                <p>Code nennen oder QR scannen, prüfen, als abgeholt markieren. Bezahlt wird wie gewohnt an der Kasse.</p>
+              </li>
+            </ol>
+
+            <div class="story-rail" aria-hidden="true">
+              <span class="rail-fill"></span>
+              <i></i><i></i><i></i><i></i>
+            </div>
+          </div>
+
+          <div class="story-device" aria-hidden="true">
+            <div class="phone phone-story">
+              <div class="phone-frame">
+                <div class="phone-screen">
+                  <div class="status"><span data-status-time>20:14</span><i class="island"></i><span class="status-r"><i></i><i></i><i></i></span></div>
+
+                  <!-- Screen 0: checkout -->
+                  <div class="app screen" data-s="0">
+                    <p class="scr-back">‹ Bäckerei Rheinblick</p>
+                    <p class="scr-title">Ihre Reservierung</p>
+                    <div class="co-items">
+                      <p><span><svg><use href="#i-brezel"/></svg>2× Laugenbrezel</span><b>1,90 €</b></p>
+                      <p><span><svg><use href="#i-croissant"/></svg>2× Buttercroissant</span><b>3,60 €</b></p>
+                      <p class="co-sum"><span>Summe</span><b>5,50 €</b></p>
+                    </div>
+                    <p class="co-slot"><svg><use href="#i-clock"/></svg>Mi, 14. Okt. · 07:30–08:00</p>
+                    <div class="field"><small>Vorname</small><span class="type" style="--ch:4">Lena</span></div>
+                    <div class="field"><small>E-Mail</small><span class="type type-2" style="--ch:19">lena@beispiel.example</span></div>
+                    <p class="co-consent"><i><svg><use href="#i-check"/></svg></i>Ich akzeptiere die Bedingungen der Bäckerei.</p>
+                    <span class="co-btn">Verbindlich reservieren</span>
+                    <p class="co-note">Bezahlung bei Abholung</p>
+                  </div>
+
+                  <!-- Screen 1: confirmation -->
+                  <div class="app screen screen-confirm" data-s="1">
+                    <svg class="big-check" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28"/><path d="M20 33l8 8 16-17"/></svg>
+                    <p class="scr-title center">Reserviert!</p>
+                    <p class="scr-sub center">Wir haben Ihnen eine Bestätigung per E-Mail gesendet.</p>
+                    <div class="code-card">
+                      <small>Ihr Abholcode</small>
+                      <b>BR-7K4M9X</b>
+                      <span class="qr qr-lg" data-qr="BR-7K4M9X-L"></span>
+                      <p><svg><use href="#i-clock"/></svg>Mi, 14. Okt. · 07:30–08:00</p>
+                    </div>
+                    <span class="cf-btn">Zum Kalender hinzufügen</span>
+                    <p class="cf-note">Stornieren möglich bis Di, 18:00 Uhr</p>
+                  </div>
+
+                  <!-- Screen 2: production -->
+                  <div class="app screen screen-prod" data-s="2">
+                    <p class="scr-title">Produktion</p>
+                    <p class="scr-sub">Mittwoch, 14. Oktober</p>
+                    <div class="prod-stats"><p><small>Reserviert</small><b>230</b></p><p><small>Geplant</small><b>314</b></p><p><small>Frei</small><b>84</b></p></div>
+                    <div class="prod-legend"><span><i class="lg-a"></i>reserviert</span><span><i class="lg-b"></i>geplant</span></div>
+                    <ul class="prod-list">
+                      <li style="--r:.72; --pi:0"><p><b>Laugenbrezel</b><span>86 / 120</span></p><i><i></i></i></li>
+                      <li style="--r:.84; --pi:1"><p><b>Buttercroissant</b><span>42 / 50</span></p><i><i></i></i></li>
+                      <li style="--r:.58; --pi:2"><p><b>Classic Donut</b><span>35 / 60</span></p><i><i></i></i></li>
+                      <li style="--r:.8; --pi:3"><p><b>Dinkelbrötchen</b><span>64 / 80</span></p><i><i></i></i></li>
+                      <li class="is-low" style="--r:.75; --pi:4"><p><b>Schokoladenkuchen</b><span>3 / 4</span></p><i><i></i></i></li>
+                    </ul>
+                    <p class="prod-slots"><span>07:00</span><span class="on">07:30</span><span>08:00</span><span>08:30</span></p>
+                    <div class="tabbar"><span><i></i>Übersicht</span><span><i></i>Bestellungen</span><span><i></i>Abholung</span><span class="on"><i></i>Produktion</span></div>
+                  </div>
+
+                  <!-- Screen 3: pickup -->
+                  <div class="app screen screen-pickup" data-s="3">
+                    <p class="scr-title">Abholung</p>
+                    <p class="scr-sub">Abholcode eingeben oder QR-Code scannen.</p>
+                    <div class="pick-input"><span class="type type-code" style="--ch:9">BR-7K4M9X</span></div>
+                    <span class="pick-btn"><svg><use href="#i-search"/></svg>Suchen</span>
+                    <div class="pick-card">
+                      <small>BR-7K4M9X</small>
+                      <b>Lena Schneider</b>
+                      <p><svg><use href="#i-clock"/></svg>Mi, 14. Okt. · 07:30–08:00</p>
+                      <p class="pick-items">2× Laugenbrezel · 2× Buttercroissant</p>
+                      <span class="pick-done"><svg><use href="#i-check"/></svg>Als abgeholt markieren</span>
+                      <span class="stamp">Abgeholt</span>
+                    </div>
+                    <div class="tabbar"><span><i></i>Übersicht</span><span><i></i>Bestellungen</span><span class="on"><i></i>Abholung</span><span><i></i>Produktion</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FEATURES (horizontal) ============ -->
+    <section class="features" id="funktionen" data-theme-section="day" aria-labelledby="features-title">
+      <div class="hscroll" data-hscroll>
+        <div class="hscroll-sticky">
+          <div class="hscroll-track" data-hscroll-track>
+            <div class="h-intro">
+              <p class="eyebrow"><span class="eyebrow-no">03</span>Funktionen</p>
+              <h2 id="features-title" class="h2">Alles für Vorbestellungen. <em>Nichts,</em> was Sie nicht brauchen.</h2>
+              <p class="lead">Bewusst einfach gehalten: keine Lieferlogistik, kein Marktplatz, keine Provision. Dafür Funktionen, die auch zur Stoßzeit zuverlässig laufen.</p>
+              <p class="h-hint" aria-hidden="true"><span></span>Weiterscrollen</p>
+            </div>
+
+            <article class="fcard" data-fcard>
+              <div class="fviz viz-stock" aria-hidden="true">
+                <div class="vs-head"><span><svg><use href="#i-croissant"/></svg>Buttercroissant</span><b class="vs-count"><span>6<br>5<br>4<br>3<br>2<br>1<br>0</span></b></div>
+                <div class="vs-grid"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i><i style="--k:4"></i><i style="--k:5"></i></div>
+                <p class="vs-sold">Ausverkauft – nichts überbucht</p>
+              </div>
+              <p class="fno">01</p>
+              <h3>Verlässliche Mengen</h3>
+              <p>Der Bestand wird beim Bestellen sofort reserviert. Auch wenn viele gleichzeitig bestellen, wird nie mehr verkauft als vorhanden.</p>
+            </article>
+
+            <article class="fcard" data-fcard>
+              <div class="fviz viz-slots" aria-hidden="true">
+                <p><span>07:00</span><i style="--w:.45"><i></i></i><b>9/20</b></p>
+                <p><span>07:30</span><i style="--w:.7"><i></i></i><b>14/20</b></p>
+                <p class="full"><span>08:00</span><i style="--w:1"><i></i></i><b>voll</b></p>
+                <p><span>08:30</span><i style="--w:.3"><i></i></i><b>6/20</b></p>
+                <p class="vsl-note"><svg><use href="#i-clock"/></svg>Bestellschluss: Vortag, 18:00 Uhr</p>
+              </div>
+              <p class="fno">02</p>
+              <h3>Abholzeitfenster</h3>
+              <p>Feste Zeitfenster mit Kapazitätsgrenze, Bestellschluss am Vortag und Vorlaufzeit für Torten – pro Standort einstellbar.</p>
+            </article>
+
+            <article class="fcard" data-fcard>
+              <div class="fviz viz-code" aria-hidden="true">
+                <span class="qr qr-anim" data-qr="FEATURE-QR"></span>
+                <p class="vc-code"><span>BR-</span><span>7</span><span>K</span><span>4</span><span>M</span><span>9</span><span>X</span></p>
+                <p class="vc-mail"><i>@</i>Bestätigung gesendet</p>
+              </div>
+              <p class="fno">03</p>
+              <h3>Abholcode &amp; QR-Code</h3>
+              <p>Jede Reservierung erhält einen gut lesbaren Code und einen QR-Code per E-Mail. Das Team findet die Bestellung in Sekunden.</p>
+            </article>
+
+            <article class="fcard" data-fcard>
+              <div class="fviz viz-bars" aria-hidden="true">
+                <div class="vb-chart">
+                  <span style="--h:.62; --g:.9"><i></i></span><span style="--h:.84; --g:.95"><i></i></span><span style="--h:.48; --g:.7"><i></i></span><span style="--h:.92; --g:1"><i></i></span><span style="--h:.7; --g:.85"><i></i></span><span style="--h:.36; --g:.55"><i></i></span>
+                </div>
+                <p class="vb-legend"><span><i class="a"></i>reserviert</span><span><i class="b"></i>geplant</span></p>
+              </div>
+              <p class="fno">04</p>
+              <h3>Produktionsübersicht</h3>
+              <p>Geplant, reserviert, noch verfügbar – je Produkt und Abholfenster. Mengen vom Vortag übernehmen Sie mit einem Klick.</p>
+            </article>
+
+            <article class="fcard" data-fcard>
+              <div class="fviz viz-locs" aria-hidden="true">
+                <div class="vl-map"><i class="pin p1"></i><i class="pin p2"></i><i class="pin p3"></i><svg viewBox="0 0 200 120" preserveAspectRatio="none"><path d="M0 70C40 60 60 90 100 74S160 40 200 52" /></svg></div>
+                <p><b>Altstadt</b><span>Bestand 120</span></p>
+                <p><b>Oberkassel</b><span>Bestand 80</span></p>
+                <p><b>Bilk</b><span>Bestand 60</span></p>
+              </div>
+              <p class="fno">05</p>
+              <h3>Mehrere Filialen</h3>
+              <p>Bestände, Abholzeiten und Rechte pro Standort. Filialleitungen sehen nur, was sie betrifft.</p>
+            </article>
+
+            <article class="fcard" data-fcard>
+              <div class="fviz viz-team" aria-hidden="true">
+                <p style="--t:0"><i class="av av1">CB</i><b>Inhaberin</b><span class="tg on"></span></p>
+                <p style="--t:1"><i class="av av2">JM</i><b>Filialleitung</b><span class="tg on"></span></p>
+                <p style="--t:2"><i class="av av3">TK</i><b>Theke</b><span class="tg"></span></p>
+                <span class="vt-invite">Einladung per E-Mail</span>
+              </div>
+              <p class="fno">06</p>
+              <h3>Team &amp; Rollen</h3>
+              <p>Inhaber, Filialleitung und Mitarbeitende mit passenden Rechten. Einladung per E-Mail – ohne Passwörter weiterzugeben.</p>
+            </article>
+
+            <article class="fcard" data-fcard>
+              <div class="fviz viz-chart" aria-hidden="true">
+                <svg viewBox="0 0 240 120" preserveAspectRatio="none"><defs><linearGradient id="vch-fill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#B5562B" stop-opacity=".28"/><stop offset="1" stop-color="#B5562B" stop-opacity="0"/></linearGradient></defs><path class="area" d="M0 96L30 84 60 88 90 62 120 70 150 44 180 52 210 30 240 22V120H0z"/><path class="line" d="M0 96L30 84 60 88 90 62 120 70 150 44 180 52 210 30 240 22"/></svg>
+                <span class="vch-csv">CSV exportieren</span>
+              </div>
+              <p class="fno">07</p>
+              <h3>Auswertungen</h3>
+              <p>Reservierungen pro Tag, Produkt und Zeitfenster, Stornierungen und Nicht-Abholungen. Export als CSV.</p>
+            </article>
+
+            <article class="fcard" data-fcard>
+              <div class="fviz viz-privacy" aria-hidden="true">
+                <svg class="shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+                <p class="anon"><span class="anon-a">Lena Schneider</span><span class="anon-b">L••• S•••••••</span></p>
+                <p class="anon-note">automatisch anonymisiert nach Frist</p>
+              </div>
+              <p class="fno">08</p>
+              <h3>Datensparsam</h3>
+              <p>Vorname und E-Mail genügen. Kontaktdaten abgeschlossener Bestellungen werden nach einer einstellbaren Frist automatisch anonymisiert.</p>
+            </article>
+
+            <article class="fcard fcard-end" data-fcard>
+              <div class="end-art" aria-hidden="true"><svg class="ea-1"><use href="#i-donut"/></svg><svg class="ea-2"><use href="#i-croissant"/></svg><svg class="ea-3"><use href="#i-brezel"/></svg></div>
+              <p class="fno">09</p>
+              <h3>Web &amp; App</h3>
+              <p>Die Bestellseite läuft in jedem Browser. Für das Team gibt es zusätzlich eine App mit QR-Scanner – für Android und iOS, in Vorbereitung.</p>
+              <a class="btn btn-dark" data-magnetic href="https://metur100.github.io/Back.Reserver.App/b/baeckerei-rheinblick"><span class="btn-label">Demo ausprobieren</span><span class="btn-icon" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span></a>
+            </article>
+          </div>
+          <div class="hscroll-progress" aria-hidden="true"><span></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SHOWCASE ============ -->
+    <section class="showcase" id="einblick" data-theme-section="day" aria-labelledby="showcase-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow" data-reveal><span class="eyebrow-no">04</span>Einblick</p>
+          <h2 class="h2" id="showcase-title" data-split="words" data-reveal-words>Ihr Cockpit für den <em>Morgen.</em></h2>
+          <p class="lead" data-reveal style="--rd:150">Übersicht, Bestellungen und Produktion – klar strukturiert für Backstube, Theke und Büro. Alle Ansichten stammen aus der Demo-Bäckerei.</p>
+        </div>
+
+        <div class="tabs" role="tablist" aria-label="Ansichten" data-tabs data-reveal style="--rd:250">
+          <button type="button" role="tab" id="tab-0" aria-selected="true" aria-controls="shot-panel" data-tab="0"><span>Übersicht</span><i></i></button>
+          <button type="button" role="tab" id="tab-1" aria-selected="false" aria-controls="shot-panel" data-tab="1" tabindex="-1"><span>Bestellungen</span><i></i></button>
+          <button type="button" role="tab" id="tab-2" aria-selected="false" aria-controls="shot-panel" data-tab="2" tabindex="-1"><span>Produktion</span><i></i></button>
+        </div>
+      </div>
+
+      <div class="showcase-stage" data-scene data-start="1" data-end="0.55">
+        <div class="browser">
+          <div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i><span>BackReserve · Bäckerei Rheinblick</span></div>
+          <div class="browser-view" id="shot-panel" role="tabpanel" aria-labelledby="tab-0" data-shots>
+            <img class="is-on" src="assets/img/app-dashboard.webp" width="2400" height="1267" alt="Übersicht im Bäckerei-Dashboard: Reservierungen heute und morgen, Abholplan nach Zeitfenstern und knappe Bestände" />
+            <img src="assets/img/app-orders.webp" width="2400" height="1267" loading="lazy" alt="Bestellliste mit Abholcode, Zeitfenster, Kunde, Summe und Status sowie Schaltflächen zum Vorbereiten und Übergeben" />
+            <img src="assets/img/app-production.webp" width="2400" height="1267" loading="lazy" alt="Produktionsübersicht mit geplanten, reservierten, abgeholten und verfügbaren Mengen je Produkt" />
+          </div>
+        </div>
+        <figure class="float-phone float-phone-l" data-parallax="-0.12">
+          <img src="assets/img/app-shop-mobile.webp" width="780" height="1688" loading="lazy" alt="Bestellseite auf dem Smartphone mit Produkten, Preisen und Verfügbarkeit" />
+          <figcaption>Bestellseite für Ihre Kundschaft</figcaption>
+        </figure>
+        <figure class="float-phone float-phone-r" data-parallax="0.16">
+          <img src="assets/img/app-pickup-mobile.webp" width="780" height="1688" loading="lazy" alt="Abholbildschirm mit eingegebenem Abholcode und gefundener Bestellung" />
+          <figcaption>Abholung an der Theke</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ FACTS ============ -->
+    <section class="facts" data-theme-section="day" aria-labelledby="facts-title">
+      <div class="container">
+        <h2 class="h2 facts-title" id="facts-title" data-split="words" data-reveal-words>Einfach <em>gerechnet.</em></h2>
+        <div class="facts-grid">
+          <div class="fact" data-reveal>
+            <p class="fact-num"><span data-count data-from="25" data-to="0">0</span><small>€</small></p>
+            <p class="fact-label">Provision pro Bestellung</p>
+            <p class="fact-text">Sie zahlen einen festen Monatspreis – egal, wie viel reserviert wird.</p>
+          </div>
+          <div class="fact" data-reveal style="--rd:100">
+            <p class="fact-num"><span data-count data-from="12" data-to="2">2</span></p>
+            <p class="fact-label">Pflichtfelder</p>
+            <p class="fact-text">Vorname und E-Mail genügen für eine Reservierung. Mehr nur, wenn Sie es wünschen.</p>
+          </div>
+          <div class="fact" data-reveal style="--rd:200">
+            <p class="fact-num"><span data-count data-from="9" data-to="1">1</span></p>
+            <p class="fact-label">Link genügt</p>
+            <p class="fact-text">Auf Ihrer Website, im Google-Profil oder in Social Media teilen – ohne App-Installation.</p>
+          </div>
+          <div class="fact" data-reveal style="--rd:300">
+            <p class="fact-num"><span data-count data-from="0" data-to="30">30</span></p>
+            <p class="fact-label">Tage kostenlos</p>
+            <p class="fact-text">In Ruhe ausprobieren. Während der Testphase werden keine Zahlungsdaten abgefragt.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PRICING ============ -->
+    <section class="pricing" id="preise" data-theme-section="day" aria-labelledby="pricing-title">
+      <div class="container">
+        <div class="section-head center">
+          <p class="eyebrow" data-reveal><span class="eyebrow-no">05</span>Preise</p>
+          <h2 class="h2" id="pricing-title" data-split="words" data-reveal-words>Ein fester Preis. <em>Keine Provision.</em></h2>
+          <p class="lead" data-reveal style="--rd:150">30 Tage kostenlos testen. Keine Einrichtungsgebühr und keine Zahlungsdaten während der Testphase.</p>
+        </div>
+
+        <div class="plans">
+          <article class="plan" data-spot data-reveal>
+            <h3>Starter</h3>
+            <p class="plan-desc">Für die kleine Bäckerei mit einer Filiale.</p>
+            <p class="price"><span class="amount">19&nbsp;€</span><span class="per">pro Monat</span></p>
+            <a class="btn btn-ghost btn-block" href="https://metur100.github.io/Back.Reserver.App/registrieren"><span class="btn-label">Kostenlos testen</span></a>
+            <ul>
+              <li><svg aria-hidden="true"><use href="#i-check"/></svg>1 Standort</li>
+              <li><svg aria-hidden="true"><use href="#i-check"/></svg>bis 30 Produkte</li>
+              <li><svg aria-hidden="true"><use href="#i-check"/></svg>bis 3 Benutzerkonten</li>
+              <li><svg aria-hidden="true"><use href="#i-check"/></svg>Vorbestellungen &amp; Abholcodes</li>
+              <li><svg aria-hidden="true"><use href="#i-check"/></svg>Basis-Auswertungen</li>
+            </ul>
           </article>
-          <article class="plan plan-featured">
+          <article class="plan plan-featured" data-spot data-reveal style="--rd:120">
             <p class="badge">Beliebt</p>
             <h3>Business</h3>
-            <p class="price"><span class="amount">39&nbsp;€</span><span class="per">/ Monat</span></p>
-            <p class="plan-desc">Für Betriebe, die Produktion planen wollen.</p>
+            <p class="plan-desc">Für Betriebe, die ihre Produktion planen wollen.</p>
+            <p class="price"><span class="amount">39&nbsp;€</span><span class="per">pro Monat</span></p>
+            <a class="btn btn-primary btn-block" data-magnetic href="https://metur100.github.io/Back.Reserver.App/registrieren"><span class="btn-label">Kostenlos testen</span><span class="btn-icon" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span></a>
             <ul>
-              <li>1 Standort</li>
-              <li>bis 150 Produkte</li>
-              <li>bis 10 Benutzerkonten</li>
-              <li>Produktionsplanung</li>
-              <li>Eigenes Branding</li>
-              <li>CSV-Export</li>
-              <li>E-Mail-Benachrichtigungen</li>
+              <li><svg aria-hidden="true"><use href="#i-check"/></svg>1 Standort</li>
+              <li><svg aria-hidden="true"><use href="#i-check"/></svg>bis 150 Produkte</li>
+              <li><svg aria-hidden="true"><use href="#i-check"/></svg>bis 10 Benutzerkonten</li>
+              <li><svg aria-hidden="true"><use href="#i-check"/></svg>Produktionsplanung</li>
+              <li><svg aria-hidden="true"><use href="#i-check"/></svg>Eigenes Branding</li>
+              <li><svg aria-hidden="true"><use href="#i-check"/></svg>CSV-Export</li>
+              <li><svg aria-hidden="true"><use href="#i-check"/></svg>E-Mail-Benachrichtigungen</li>
             </ul>
-            <a class="btn btn-primary" href="https://metur100.github.io/Back.Reserver.App/registrieren">Kostenlos testen</a>
           </article>
-          <article class="plan">
+          <article class="plan" data-spot data-reveal style="--rd:240">
             <h3>Multi-Standort</h3>
-            <p class="price"><span class="amount">79&nbsp;€</span><span class="per">/ Monat</span></p>
             <p class="plan-desc">Für mehrere Filialen unter einem Dach.</p>
+            <p class="price"><span class="amount">79&nbsp;€</span><span class="per">pro Monat</span></p>
+            <a class="btn btn-ghost btn-block" href="https://metur100.github.io/Back.Reserver.App/registrieren"><span class="btn-label">Kostenlos testen</span></a>
             <ul>
-              <li>bis 5 Standorte</li>
-              <li>bis 500 Produkte</li>
-              <li>bis 40 Benutzerkonten</li>
-              <li>Bestände &amp; Rechte pro Standort</li>
-              <li>Alle Business-Funktionen</li>
-              <li>Standortübergreifende Auswertungen</li>
+              <li><svg aria-hidden="true"><use href="#i-check"/></svg>bis 5 Standorte</li>
+              <li><svg aria-hidden="true"><use href="#i-check"/></svg>bis 500 Produkte</li>
+              <li><svg aria-hidden="true"><use href="#i-check"/></svg>bis 40 Benutzerkonten</li>
+              <li><svg aria-hidden="true"><use href="#i-check"/></svg>Bestände &amp; Rechte pro Standort</li>
+              <li><svg aria-hidden="true"><use href="#i-check"/></svg>Alle Business-Funktionen</li>
+              <li><svg aria-hidden="true"><use href="#i-check"/></svg>Standortübergreifende Auswertungen</li>
             </ul>
-            <a class="btn btn-ghost" href="https://metur100.github.io/Back.Reserver.App/registrieren">Kostenlos testen</a>
           </article>
         </div>
-        <p class="fine-print center">Alle Preise zzgl. gesetzlicher MwSt. BackReserve befindet sich in der Einführungsphase; während der Testphase entstehen keine Kosten und es werden keine Zahlungsdaten abgefragt.</p>
+        <p class="fine-print" data-reveal>Alle Preise zzgl. gesetzlicher MwSt. BackReserve befindet sich in der Einführungsphase; während der Testphase entstehen keine Kosten.</p>
       </div>
     </section>
 
-    <!-- FAQ -->
-    <section class="section" id="faq" aria-labelledby="faq-title">
-      <div class="container narrow">
-        <h2 id="faq-title" class="center">Häufige Fragen</h2>
-        <div class="faq">
-          <details>
-            <summary>Brauchen meine Kundinnen und Kunden ein Konto oder eine App?</summary>
-            <p>Nein. Die Bestellseite funktioniert in jedem Browser. Für eine Reservierung reichen Vorname und E-Mail-Adresse; Nachname und Telefonnummer können Sie optional verlangen.</p>
+    <!-- ============ FAQ ============ -->
+    <section class="faq" id="faq" data-theme-section="day" aria-labelledby="faq-title">
+      <div class="container faq-grid">
+        <div class="faq-side">
+          <p class="eyebrow" data-reveal><span class="eyebrow-no">06</span>FAQ</p>
+          <h2 class="h2" id="faq-title" data-split="words" data-reveal-words>Häufige <em>Fragen.</em></h2>
+          <p class="lead" data-reveal style="--rd:150">Ihre Frage ist nicht dabei? Schauen Sie sich die Demo-Bäckerei an – dort sehen Sie jede Funktion aus Sicht Ihrer Kundschaft.</p>
+          <a class="text-link" data-reveal style="--rd:250" href="https://metur100.github.io/Back.Reserver.App/b/baeckerei-rheinblick">Zur Demo-Bäckerei<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+        <div class="faq-list" data-faq>
+          <details data-reveal>
+            <summary>Brauchen meine Kundinnen und Kunden ein Konto oder eine App?<i aria-hidden="true"></i></summary>
+            <div class="faq-a"><p>Nein. Die Bestellseite funktioniert in jedem Browser. Für eine Reservierung reichen Vorname und E-Mail-Adresse; Nachname und Telefonnummer können Sie optional verlangen.</p></div>
           </details>
-          <details>
-            <summary>Wie wird bezahlt?</summary>
-            <p>Ganz klassisch bei der Abholung in Ihrer Bäckerei. BackReserve wickelt keine Zahlungen ab und speichert keine Kartendaten.</p>
+          <details data-reveal>
+            <summary>Wie wird bezahlt?<i aria-hidden="true"></i></summary>
+            <div class="faq-a"><p>Ganz klassisch bei der Abholung in Ihrer Bäckerei. BackReserve wickelt keine Zahlungen ab und speichert keine Kartendaten.</p></div>
           </details>
-          <details>
-            <summary>Was passiert, wenn ein Produkt ausverkauft ist?</summary>
-            <p>Sobald die freigegebene Menge reserviert ist, wird das Produkt für diesen Tag als ausverkauft angezeigt. Bereits bestätigte Reservierungen bleiben selbstverständlich gültig.</p>
+          <details data-reveal>
+            <summary>Was passiert, wenn ein Produkt ausverkauft ist?<i aria-hidden="true"></i></summary>
+            <div class="faq-a"><p>Sobald die freigegebene Menge reserviert ist, wird das Produkt für diesen Tag als ausverkauft angezeigt. Bereits bestätigte Reservierungen bleiben selbstverständlich gültig.</p></div>
           </details>
-          <details>
-            <summary>Können Kunden stornieren?</summary>
-            <p>Ja, bis zu einer von Ihnen festgelegten Frist – zum Beispiel bis 18:00 Uhr am Vortag. Die Menge steht danach automatisch wieder zur Verfügung.</p>
+          <details data-reveal>
+            <summary>Können Kunden stornieren?<i aria-hidden="true"></i></summary>
+            <div class="faq-a"><p>Ja, bis zu einer von Ihnen festgelegten Frist – zum Beispiel bis 18:00 Uhr am Vortag. Die Menge steht danach automatisch wieder zur Verfügung.</p></div>
           </details>
-          <details>
-            <summary>Ich habe mehrere Filialen. Geht das?</summary>
-            <p>Ja. Jede Filiale hat eigene Abholzeiten, Kapazitäten und Tagesmengen. Mitarbeitende sehen nur die Standorte, denen sie zugeordnet sind.</p>
+          <details data-reveal>
+            <summary>Ich habe mehrere Filialen. Geht das?<i aria-hidden="true"></i></summary>
+            <div class="faq-a"><p>Ja. Jede Filiale hat eigene Abholzeiten, Kapazitäten und Tagesmengen. Mitarbeitende sehen nur die Standorte, denen sie zugeordnet sind.</p></div>
           </details>
-          <details>
-            <summary>Wer ist für Allergenangaben verantwortlich?</summary>
-            <p>Sie als Bäckerei. BackReserve zeigt Ihre Angaben zu Allergenen und Zutaten genau so an, wie Sie sie hinterlegen, und ergänzt Ihren Hinweistext – es werden keine Angaben automatisch erzeugt.</p>
+          <details data-reveal>
+            <summary>Wer ist für Allergenangaben verantwortlich?<i aria-hidden="true"></i></summary>
+            <div class="faq-a"><p>Sie als Bäckerei. BackReserve zeigt Ihre Angaben zu Allergenen und Zutaten genau so an, wie Sie sie hinterlegen, und ergänzt Ihren Hinweistext – es werden keine Angaben automatisch erzeugt.</p></div>
           </details>
-          <details>
-            <summary>Was passiert mit den Kundendaten?</summary>
-            <p>Kundendaten werden nur für die Reservierung genutzt. Nach einer von Ihnen einstellbaren Frist werden Kontaktdaten abgeschlossener Bestellungen automatisch anonymisiert.</p>
+          <details data-reveal>
+            <summary>Was passiert mit den Kundendaten?<i aria-hidden="true"></i></summary>
+            <div class="faq-a"><p>Kundendaten werden nur für die Reservierung genutzt. Nach einer von Ihnen einstellbaren Frist werden Kontaktdaten abgeschlossener Bestellungen automatisch anonymisiert.</p></div>
           </details>
         </div>
       </div>
     </section>
 
-    <!-- CTA -->
-    <section class="cta" aria-labelledby="cta-title">
-      <div class="container cta-inner">
-        <h2 id="cta-title">Bereit für den ersten vorbestellten Donut?</h2>
-        <p>In wenigen Minuten eingerichtet: Bäckerei anlegen, Produkte eintragen, Link teilen.</p>
-        <div class="hero-actions center-actions">
-          <a class="btn btn-light btn-lg" href="https://metur100.github.io/Back.Reserver.App/registrieren">Jetzt kostenlos starten</a>
-          <a class="btn btn-outline-light btn-lg" href="https://metur100.github.io/Back.Reserver.App/b/baeckerei-rheinblick">Demo ansehen</a>
+    <!-- ============ FINALE ============ -->
+    <section class="finale" data-theme-section="day" aria-labelledby="finale-title">
+      <div class="finale-card" data-scene data-start="1" data-end="0.5">
+      <div class="finale-sky" aria-hidden="true">
+        <div class="sun"><i class="rays"></i></div>
+        <div class="horizon"></div>
+      </div>
+      <div class="container finale-inner">
+        <p class="eyebrow eyebrow-light" data-reveal>Bereit, wenn Sie es sind</p>
+        <h2 class="finale-title" id="finale-title" data-split="chars" data-reveal-chars><span class="ln">Morgen früh schon</span> <span class="ln"><em>reserviert?</em></span></h2>
+        <p class="finale-lead" data-reveal style="--rd:200">Bäckerei anlegen, Produkte eintragen, Link teilen – in wenigen Minuten ist Ihre Bestellseite online.</p>
+        <div class="finale-actions" data-reveal style="--rd:320">
+          <a class="btn btn-light btn-lg" data-magnetic href="https://metur100.github.io/Back.Reserver.App/registrieren"><span class="btn-label">Jetzt kostenlos starten</span><span class="btn-icon" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span></a>
+          <a class="btn btn-ghost-light btn-lg" data-magnetic href="https://metur100.github.io/Back.Reserver.App/b/baeckerei-rheinblick"><span class="btn-label">Demo ansehen</span></a>
         </div>
+      </div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <div>
-        <p class="brand-name">BackReserve</p>
-        <p class="muted">Vorbestellen. Sicher abholen. Frisch genießen.</p>
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="brand" href="#top" aria-label="BackReserve – zum Seitenanfang">
+            <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><use href="#i-mark"/></svg></span>
+            <span class="brand-name">BackReserve</span>
+          </a>
+          <p>Vorbestellen. Sicher abholen. Frisch genießen.</p>
+        </div>
+        <nav class="footer-col" aria-label="Produkt">
+          <p>Produkt</p>
+          <a href="#ablauf">So funktioniert’s</a>
+          <a href="#funktionen">Funktionen</a>
+          <a href="#preise">Preise</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+        <nav class="footer-col" aria-label="App">
+          <p>App</p>
+          <a href="https://metur100.github.io/Back.Reserver.App/registrieren">Registrieren</a>
+          <a href="https://metur100.github.io/Back.Reserver.App/login">Anmelden</a>
+          <a href="https://metur100.github.io/Back.Reserver.App/b/baeckerei-rheinblick">Demo-Bäckerei</a>
+        </nav>
+        <nav class="footer-col" aria-label="Rechtliches">
+          <p>Rechtliches</p>
+          <a href="impressum.html">Impressum</a>
+          <a href="datenschutz.html">Datenschutz</a>
+        </nav>
       </div>
-      <nav aria-label="Rechtliches">
-        <a href="impressum.html">Impressum</a>
-        <a href="datenschutz.html">Datenschutz</a>
-        <a href="https://metur100.github.io/Back.Reserver.App/login">Anmelden</a>
-      </nav>
-      <p class="muted small">© <span data-year>2026</span> BackReserve</p>
+      <p class="footer-word" aria-hidden="true" data-split="chars" data-reveal-chars>BackReserve</p>
+      <div class="footer-bottom">
+        <p>© <span data-year>2026</span> BackReserve</p>
+        <p>Keine Cookies. Kein Tracking. Keine Drittanbieter.</p>
+        <a class="to-top" href="#top">Nach oben<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
     </div>
   </footer>
 
