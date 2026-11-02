@@ -2,7 +2,7 @@
 
 Marketing website for BackReserve, the pre-ordering and pickup platform for bakeries.
 
-- Live: https://metur100.github.io/Back.Reserver.Landing/
+- Live: https://reserver.gentlegroup.de/
 - App (web): https://metur100.github.io/Back.Reserver.App/ — source in [metur100/Back.Reserver.App](https://github.com/metur100/Back.Reserver.App)
 
 ## Concept
@@ -16,7 +16,9 @@ Plain static HTML/CSS/JS, no build step, no dependencies:
 | Path | Content |
 |---|---|
 | `index.html` | Landing page (German) |
-| `impressum.html`, `datenschutz.html` | Legal pages — **placeholders, must be completed before launch** |
+| `impressum.html`, `datenschutz.html` | Legal pages (operator: Berk-Can Atesoglu, Gentle Group Studios) |
+| `konto-loeschen.html` | Account and data deletion – URL for Google Play / App Store Connect |
+| `support.html` | Help & contact – support URL for the stores |
 | `404.html` | Not-found page for GitHub Pages |
 | `assets/styles.css` | Design tokens, layout and all CSS animations |
 | `assets/main.js` | Scroll engine and interactions (see below) |
